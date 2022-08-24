@@ -4,5 +4,6 @@ from django.shortcuts import render, HttpResponse
 
 # Create your views here.
 
-def dashboard(request):
+def dashboard_index(request):
     return render(request,'dashboard/index.html')
+
