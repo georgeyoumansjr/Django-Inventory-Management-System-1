@@ -11,19 +11,19 @@
     <div class="row my-4">
 
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='add-product.php'">
-          <i class="far fa-plus-square pr-3"></i> Add Product
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:add_products' %}'">
+          <i class="far fa-plus-square pr-3"></i> Add Products
         </button>
       </div>
 
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='search-products.php'">
-          <i class="fas fa-search pr-3"></i> Search
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:search_available_products' %}'">
+          <i class="fas fa-search pr-3"></i> Search Products
         </button>
       </div>
 
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='view-available-products.php'">
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:view_available_products' %}'">
           <i class="fas fa-boxes pr-3"></i> View Available Products
         </button>
       </div>
@@ -32,20 +32,20 @@
 
     <div class="row my-4">
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='sell-product.php'">
-          <i class="far fa-minus-square pr-3"></i> Sell Product
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:sell_available_products' %}'">
+          <i class="far fa-minus-square pr-3"></i> Sell Products
         </button>
       </div>
 
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='view-sold-products.php'">
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:view_sold_products' %}'">
           <i class="fas fa-boxes pr-3"></i> View Sold Products
         </button>
       </div>
 
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='add-admin.php'">
-          <i class="fas fa-user-shield pr-3"></i> Admin
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:users' %}'">
+          <i class="fas fa-user-shield pr-3"></i> Users
         </button>
       </div>
 
