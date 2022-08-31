@@ -1,5 +1,6 @@
+from multiprocessing import context
 from django.shortcuts import render, HttpResponse
-
+from . import models
 
 # Create your views here.
 
@@ -12,8 +13,17 @@ def add_products(request):
 def search_available_products(request):
     return HttpResponse("search_available_products PAGE")
 
+# view_available_products 
 def view_available_products(request):
-    return HttpResponse("view_available_products PAGE")
+
+    all_products = models.Available_product_table.objects.all()
+    context = {
+        'all_products' : all_products,
+        'title' : 'All Products',
+        }
+            
+    return render(request,'dashboard/view_available_products.html',context=context)
+
 
 def sell_available_products(request):
     return HttpResponse("sell_available_products PAGE")
