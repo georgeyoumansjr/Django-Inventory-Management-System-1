@@ -1,0 +1,38 @@
+{% extends 'dashboard/base.html' %}
+{% block dashboardcontent %}
+
+    {% if all_products.count > 0 %}
+
+        <table class='table table-striped'>
+            <thead>
+                <tr>
+                    <th scope='col'>Date Time</th>
+                    <th scope='col'>Product ID</th>
+                    <th scope='col'>Product Name</th>
+                    <th scope='col'>Product Price</th>
+                    <th scope='col'>Quantity</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for item in all_products %}
+                    <tr>
+                        <td scope='row'>{{DATETIME}}</th>
+                        <td scope='row'>{{item.id}}</th>
+                        <td scope='row'>{{item.product_name}}</td>
+                        <td scope='row'>{{item.product_price}}</td>
+                        <td scope='row'>{{item.product_quantity}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% else %}
+        <h1 class='text-center'>No Products are thier to view....</h1>
+
+    {% endif %}
+    
+    <button class='btn action-btn btn-block' onclick="location.href={% url 'dashboard:dashboard_index' %}">Go Back</button>          
+
+
+{% endblock %}
