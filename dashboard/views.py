@@ -1,4 +1,3 @@
-from multiprocessing import context
 from django.shortcuts import render, HttpResponse
 from . import models
 
@@ -8,7 +7,8 @@ def dashboard_index(request):
     return render(request,'dashboard/index.html')
 
 def add_products(request):
-    return HttpResponse("add_products PAGE")
+      return render(request,'dashboard/test.html',context={'title':'TEST'})
+
 
 def search_available_products(request):
     return HttpResponse("search_available_products PAGE")
