@@ -4,7 +4,8 @@ from . import models
 # Create your views here.
 
 def dashboard_index(request):
-    return render(request,'dashboard/index.html')
+    return render(request,'dashboard/index.html',context={'title':'Dashboard'})
+
 
 def add_products(request):
       return render(request,'dashboard/test.html',context={'title':'TEST'})
