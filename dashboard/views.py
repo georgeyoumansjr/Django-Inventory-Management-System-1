@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from . import models
 from .forms import AddProductForm, SearchForm
 
+
 # Create your views here.
 
 def dashboard_index(request):
@@ -35,9 +36,27 @@ def add_products(request):
 
 
 
-
+# search_available_products
 def search_available_products(request):
     form = SearchForm()
+
+    if request.method == 'POST':
+        form = SearchForm(request.POST)
+        
+        if form.is_valid():
+            search_product = form.cleaned_data['search_product']
+            
+            all_products = models.Available_product_table.objects.filter(product_name = search_product).values()  
+            #print(all_products)
+            context = {
+                'all_products' : all_products,
+                'title' : 'Search Result',
+            }
+            
+            return render(request,'dashboard/view_available_products.html',context=context)
+
+        else:
+            print("FORM ERROR")
 
     context = {
         'form' : form,

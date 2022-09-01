@@ -12,4 +12,4 @@ class AddProductForm(forms.ModelForm):
 
 
 class SearchForm(forms.Form):
-    search_product = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Enter Product ID or Name','class':'form-control my-0 py-1'}))
+    search_product = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Enter Product Name','class':'form-control my-0 py-1'}))
