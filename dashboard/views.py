@@ -86,16 +86,22 @@ def sell_available_products(request):
     return HttpResponse("sell_available_products PAGE")
 
 
+
+
+
 # view_sold_products
 def view_sold_products(request):
-    # --- link sold_products_table
-    all_products = models.Available_product_table.objects.all()
+    all_sold_products = models.Sold_product_table.objects.all()
     context = {
-        'all_products' : all_products,
+        'all_sold_products' : all_sold_products,
         'title' : 'Sold Products',
         }
             
     return render(request,'dashboard/view_sold_products.html',context=context)
+
+
+
+
 
 
 def users(request):

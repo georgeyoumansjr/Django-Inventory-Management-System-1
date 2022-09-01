@@ -1,7 +1,7 @@
 {% extends 'dashboard/base.html' %}
 {% block dashboardcontent %}
 
-    {% if all_products.count > 0 %}
+    {% if all_sold_products.count > 0 %}
 
         <table class='table table-striped'>
             <thead>
@@ -15,10 +15,10 @@
             </thead>
             
             <tbody>
-                {% for item in all_products %}
+                {% for item in all_sold_products %}
                     <tr>
-                        <td scope='row'>{{DATETIME}}</th>
-                        <td scope='row'>{{item.id}}</th>
+                        <td scope='row'>{{item.date_time}}</th>
+                        <td scope='row'>{{item.product_id}}</th>
                         <td scope='row'>{{item.product_name}}</td>
                         <td scope='row'>{{item.product_price}}</td>
                         <td scope='row'>{{item.product_quantity}}</td>
