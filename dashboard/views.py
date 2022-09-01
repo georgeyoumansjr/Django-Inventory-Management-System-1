@@ -19,13 +19,11 @@ def add_products(request):
         form = AddProductForm(request.POST)
         
         if form.is_valid():
-            print()
-            print(form.cleaned_data)
-            print(
-                form.cleaned_data['product_name'], 
-                form.cleaned_data['product_price'], 
-                form.cleaned_data['product_quantity']
-            )
+            form.save()
+        else:
+            print("FORM ERROR")
+
+        
 
     context = {
         'form' : form,
