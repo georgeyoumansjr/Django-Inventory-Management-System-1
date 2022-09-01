@@ -1,0 +1,23 @@
+{% extends 'dashboard/base.html' %}
+{% block dashboardcontent %}
+
+    <form method="POST">
+        <div class="input-group md-form form-md form-2 p-3">
+            {{form.search_product}}
+            {% csrf_token %}
+           
+            <button class="btn my-0 py-1" type="submit">
+                <span class="input-group-text search-btn" id="basic-text1">
+                    <i class="fas fa-search fa-fw search-icon" aria-hidden="true"></i>
+                </span>
+            </button>
+        
+        </div>
+    </form>
+
+{% endblock %}
+
+
+
+
+

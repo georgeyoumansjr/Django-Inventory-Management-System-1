@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from . import models
-from .addforms import AddProductForm
+from .addforms import AddProductForm, SearchForm
 
 # Create your views here.
 
@@ -33,8 +33,23 @@ def add_products(request):
 
 
 
+
+
+
 def search_available_products(request):
-    return HttpResponse("search_available_products PAGE")
+    form = SearchForm()
+
+    context = {
+        'form' : form,
+        'title':'Search Products',
+        }
+
+    return render(request,'dashboard/search_product.html',context=context)
+
+
+
+
+
 
 # view_available_products 
 def view_available_products(request):

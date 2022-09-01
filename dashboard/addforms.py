@@ -8,3 +8,7 @@ class AddProductForm(forms.ModelForm):
     class Meta():
         model = Available_product_table
         fields = '__all__'
+
+
+class SearchForm(forms.Form):
+    search_product = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Enter Product ID or Name','class':'form-control my-0 py-1'}))
