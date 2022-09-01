@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from . import models
+from .addforms import AddProductForm
 
 # Create your views here.
 
@@ -7,8 +8,32 @@ def dashboard_index(request):
     return render(request,'dashboard/index.html',context={'title':'Dashboard'})
 
 
+
+
+    
+#add_products
 def add_products(request):
-      return render(request,'dashboard/test.html',context={'title':'TEST'})
+    form = AddProductForm()
+
+    if request.method == 'POST':
+        form = AddProductForm(request.POST)
+        
+        if form.is_valid():
+            print()
+            print(form.cleaned_data)
+            print(
+                form.cleaned_data['product_name'], 
+                form.cleaned_data['product_price'], 
+                form.cleaned_data['product_quantity']
+            )
+
+    context = {
+        'form' : form,
+        'title':'Add Products',
+        }
+
+    return render(request,'dashboard/add_product.html',context=context)
+
 
 
 def search_available_products(request):

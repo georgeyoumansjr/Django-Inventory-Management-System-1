@@ -1,0 +1,22 @@
+{% extends 'dashboard/base.html' %}
+{% block dashboardcontent %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group mx-4 mt-4">
+            {{form.as_p}} 
+        </div>
+        
+        <div class="form-group mx-4 mt-4">
+            <button type="submit" class="btn login-btn btn-block ">Add Product</button>
+        </div>
+    </form>
+
+        
+{% endblock %}
+
+
+
+
+
