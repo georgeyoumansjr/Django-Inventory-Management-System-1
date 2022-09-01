@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from . import models
-from .addforms import AddProductForm, SearchForm
+from .forms import AddProductForm, SearchForm
 
 # Create your views here.
 
