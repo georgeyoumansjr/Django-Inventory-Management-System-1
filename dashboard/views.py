@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from . import models
 from .addforms import AddProductForm
 
@@ -20,10 +20,9 @@ def add_products(request):
         
         if form.is_valid():
             form.save()
+            return redirect('/dashboard/')
         else:
             print("FORM ERROR")
-
-        
 
     context = {
         'form' : form,
