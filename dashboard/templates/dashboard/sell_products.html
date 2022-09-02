@@ -1,0 +1,28 @@
+{% extends 'dashboard/base.html' %}
+{% block dashboardcontent %}
+
+    <form method="GET">
+
+        <div class="form-group mx-4 mt-4">
+            <select name='product_id' class="form-control" required>
+                <option value="" disabled selected hidden>-- Select Product --</option>
+                {% if all_products.count > 0 %}
+
+                    {% for item in all_products %}
+                        <option value={{item.id}}>Product id: {{item.id}}  - {{item.product_name}}</option>
+                    {% endfor %}
+
+                {% endif %}
+            </select>
+        </div>
+        
+        <div class="form-group mx-4 mt-4">
+            <input type="number" required name="sellqty" class="form-control" placeholder="Quantity" min="1">
+        </div>
+
+        <div class="form-group mx-4 mt-4">
+            <button type="submit" class="btn login-btn btn-block ">Sell Product</button>
+        </div>
+    </form>
+
+{% endblock %}

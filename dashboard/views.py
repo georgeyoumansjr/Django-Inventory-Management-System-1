@@ -82,8 +82,20 @@ def view_available_products(request):
     return render(request,'dashboard/view_available_products.html',context=context)
 
 
+
+
+
+# sell_available_products
 def sell_available_products(request):
-    return HttpResponse("sell_available_products PAGE")
+
+    all_products = models.Available_product_table.objects.all()
+    context = {
+        'all_products' : all_products,
+        'title' : 'Sell Products',
+        }
+            
+    return render(request,'dashboard/sell_products.html',context=context)
+
 
 
 
