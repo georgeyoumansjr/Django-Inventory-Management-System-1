@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 
 # Create your models here.
@@ -12,7 +13,7 @@ class Available_product_table(models.Model):
 
 
 class Sold_product_table(models.Model):
-    date_time = models.DateTimeField()
+    date_time = models.DateTimeField(auto_now=True)
     product_id = models.IntegerField()
     product_name = models.CharField(max_length=50)
     product_price = models.IntegerField()
