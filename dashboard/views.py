@@ -88,10 +88,39 @@ def view_available_products(request):
 # sell_available_products
 def sell_available_products(request):
 
+    if request.method == 'POST':
+        sell_product_id = request.POST['product_id']
+        sell_qty = int(request.POST['sellqty'])
+        
+        sell_product = models.Available_product_table.objects.filter(id = sell_product_id).values()
+        sell_product = sell_product[0]
+
+        if  sell_qty <= sell_product['product_quantity']:
+            product = models.Sold_product_table(
+                product_id = sell_product['id'], 
+                product_name = sell_product['product_name'],
+                product_price = sell_product['product_price'],
+                product_quantity = sell_qty,
+            )
+            product.save()
+
+            # UPDATE Available_product_table
+            remaning_qty = sell_product['product_quantity'] - sell_qty
+
+            update_product = models.Available_product_table.objects.get(id = sell_product_id)
+            update_product.product_quantity = remaning_qty
+            update_product.save()
+            
+
+        else:
+            test = 'FALSE'
+        
+
     all_products = models.Available_product_table.objects.all()
     context = {
         'all_products' : all_products,
         'title' : 'Sell Products',
+        't1' : 'test',
         }
             
     return render(request,'dashboard/sell_products.html',context=context)

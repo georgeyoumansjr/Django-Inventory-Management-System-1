@@ -1,8 +1,8 @@
 {% extends 'dashboard/base.html' %}
 {% block dashboardcontent %}
 
-    <form method="GET">
-
+    <form method="POST">
+        {% csrf_token %}
         <div class="form-group mx-4 mt-4">
             <select name='product_id' class="form-control" required>
                 <option value="" disabled selected hidden>-- Select Product --</option>
