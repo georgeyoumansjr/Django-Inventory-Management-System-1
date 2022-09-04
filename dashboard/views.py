@@ -65,8 +65,6 @@ def search_available_products(request):
             
             return render(request,'dashboard/view_available_products.html',context=context)
 
-        else:
-            print("FORM ERROR")
 
     context = {
         'form' : form,
