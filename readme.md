@@ -5,11 +5,11 @@
 <b> To Run Project </b>
 - python manage.py runserver
 
-
+<br>
 <b> Admin account: </b>
 - username: admin
 - Password: admin
-
+<br>
 <b> User account: </b>
 - username: user
 - Password: user@123
