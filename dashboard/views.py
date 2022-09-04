@@ -119,16 +119,24 @@ def sell_available_products(request):
             update_product.product_quantity = remaning_qty
             update_product.save()
             
+            context = {
+                'result' : 'Product sold successfully!',
+                'title':'Sell Products',
+            }
+            return render(request,'dashboard/result.html',context=context)
 
         else:
-            test = 'FALSE'
+            context = {
+                'result' : 'Enter Quantity is less than available stock or Product is Out of Stock!',
+                'title':'Sell Products',
+            }
+            return render(request,'dashboard/result.html',context=context)
         
 
     all_products = models.Available_product_table.objects.all()
     context = {
         'all_products' : all_products,
         'title' : 'Sell Products',
-        't1' : 'test',
         }
             
     return render(request,'dashboard/sell_products.html',context=context)
