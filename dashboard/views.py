@@ -21,9 +21,19 @@ def add_products(request):
         
         if form.is_valid():
             form.save()
-            return redirect('/dashboard/')
+            
+            context = {
+                'result' : 'New Product Added successfully',
+                'title':'Add Products',
+            }
+            return render(request,'dashboard/result.html',context=context)
+
         else:
-            print("FORM ERROR")
+            context = {
+                'result' : 'ERROR',
+                'title':'Add Products',
+            }
+            return render(request,'dashboard/result.html',context=context)
 
     context = {
         'form' : form,
