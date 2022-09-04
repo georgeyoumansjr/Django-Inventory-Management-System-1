@@ -1,10 +1,12 @@
 from django.shortcuts import render, HttpResponse, redirect
 from . import models
 from .forms import AddProductForm, SearchForm
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
+@login_required
 def dashboard_index(request):
     return render(request,'dashboard/index.html',context={'title':'Dashboard'})
 
@@ -13,6 +15,7 @@ def dashboard_index(request):
 
     
 #add_products
+@login_required
 def add_products(request):
     form = AddProductForm()
 
@@ -47,6 +50,7 @@ def add_products(request):
 
 
 # search_available_products
+@login_required
 def search_available_products(request):
     form = SearchForm()
 
@@ -79,6 +83,7 @@ def search_available_products(request):
 
 
 # view_available_products 
+@login_required
 def view_available_products(request):
 
     all_products = models.Available_product_table.objects.all()
@@ -94,6 +99,7 @@ def view_available_products(request):
 
 
 # sell_available_products
+@login_required
 def sell_available_products(request):
 
     if request.method == 'POST':
@@ -147,6 +153,7 @@ def sell_available_products(request):
 
 
 # view_sold_products
+@login_required
 def view_sold_products(request):
     all_sold_products = models.Sold_product_table.objects.all()
     context = {
@@ -161,5 +168,6 @@ def view_sold_products(request):
 
 
 
+@login_required
 def users(request):
     return HttpResponse("users PAGE")
