@@ -1,0 +1,31 @@
+{% if forms.error %}
+    ERROR INFO
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    you dont have permission for this
+        
+    {% else %}
+        please login in
+    
+    {% endif %}
+
+{% endif %}
+
+<form action='{% url 'login' %}' method="POST">
+
+    
+    {% csrf_token %}
+    
+    username:
+    {{form.username}}
+
+    password:
+    {{form.password}}
+
+
+    <input type="submit" value="Login">
+    <input type="hidden" name='next' value="{{next}}">
+
+</form>
