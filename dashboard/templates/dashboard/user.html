@@ -1,0 +1,28 @@
+{% extends 'dashboard/base.html' %}
+{% block dashboardcontent %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <div class="form-group mx-4 mt-4">
+            {{form.username.label_tag}}
+            <input type="text" required name="username" class="form-control" placeholder="Enter Username">
+        </div>
+
+        <div class="form-group mx-4 mt-4">
+            {{form.password1.label_tag}}
+            <input type="password" required  name="password1" class="form-control" placeholder="Enter Password">
+        </div>
+
+        <div class="form-group mx-4 mt-4">
+            {{form.password2.label_tag}}
+            <input type="password" required  name="password2" class="form-control" placeholder="Enter the same password as before, for verification.">
+        </div>
+        
+        <div class="form-group mx-4 mt-4">
+            <button type="submit" class="btn login-btn btn-block ">Add User</button>
+        </div>
+       
+    </form>
+
+{% endblock %}

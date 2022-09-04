@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from . import models
 from .forms import AddProductForm, SearchForm
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
@@ -170,4 +170,30 @@ def view_sold_products(request):
 
 @login_required
 def users(request):
-    return HttpResponse("users PAGE")
+    form = UserCreationForm
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        
+        if form.is_valid():
+            form.save()
+            
+            context = {
+                'result' : 'User Added successfully',
+                'title':'Add User',
+            }
+            return render(request,'dashboard/result.html',context=context)
+
+        else:
+            context = {
+                'result' : 'ERROR - Does not meet the requirements!',
+                'title':'Add User',
+            }
+            return render(request,'dashboard/result.html',context=context)
+
+    context = {
+        'form' : form,
+        'title':'Add User',
+        }
+
+    return render(request,'dashboard/user.html',context=context)
