@@ -3,6 +3,7 @@ from . import models
 from .forms import AddProductForm, SearchForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+from .auth import admin_only
 
 # Create your views here.
 
@@ -21,9 +22,11 @@ def add_products(request):
 
     if request.method == 'POST':
         form = AddProductForm(request.POST)
+        user = request.user
         
         if form.is_valid():
-            form.save()
+            created = Playlist.objects.create(added_by=request.user,**form.cleaned_data)
+            # form.save()
             
             context = {
                 'result' : 'New Product Added successfully',
@@ -85,14 +88,22 @@ def search_available_products(request):
 # view_available_products 
 @login_required
 def view_available_products(request):
-
-    all_products = models.Available_product_table.objects.all()
-    context = {
-        'all_products' : all_products,
-        'title' : 'All Products',
-        }
+    if request.user.is_superuser:
+        all_products = models.Available_product_table.objects.all()
+        context = {
+            'all_products' : all_products,
+            'title' : 'All Products',
+            }
             
-    return render(request,'dashboard/view_available_products.html',context=context)
+        return render(request,'dashboard/view_available_products.html',context=context)
+    else:
+        all_products = models.Available_product_table.objects.filter(added_by=request.user)
+        context = {
+            'all_products' : all_products,
+            'title' : 'All Products',
+            }
+            
+        return render(request,'dashboard/view_available_products.html',context=context)
 
 
 
@@ -110,11 +121,13 @@ def sell_available_products(request):
         sell_product = sell_product[0]
 
         if  sell_qty <= sell_product['product_quantity']:
+            user = request.user
             product = models.Sold_product_table(
                 product_id = sell_product['id'], 
                 product_name = sell_product['product_name'],
                 product_price = sell_product['product_price'],
                 product_quantity = sell_qty,
+                sold_by = user
             )
             product.save()
 
@@ -155,19 +168,28 @@ def sell_available_products(request):
 # view_sold_products
 @login_required
 def view_sold_products(request):
-    all_sold_products = models.Sold_product_table.objects.all()
-    context = {
-        'all_sold_products' : all_sold_products,
-        'title' : 'Sold Products',
-        }
-            
-    return render(request,'dashboard/view_sold_products.html',context=context)
+    if request.user.is_superuser:
+        all_sold_products = models.Sold_product_table.objects.all()
+        context = {
+            'all_sold_products' : all_sold_products,
+            'title' : 'Sold Products',
+            }
+                
+        return render(request,'dashboard/view_sold_products.html',context=context)
+    else:
+        all_sold_products = models.Sold_product_table.objects.filter(sold_by=request.user)
+        context = {
+            'all_sold_products' : all_sold_products,
+            'title' : 'Sold Products',
+            }
+                
+        return render(request,'dashboard/view_sold_products.html',context=context)
 
 
 
 
 
-
+@admin_only
 @login_required
 def users(request):
     form = UserCreationForm

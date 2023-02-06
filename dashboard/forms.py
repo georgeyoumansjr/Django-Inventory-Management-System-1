@@ -8,7 +8,7 @@ class AddProductForm(forms.ModelForm):
 
     class Meta():
         model = Available_product_table
-        fields = '__all__'
+        fields = ['product_name','product_price','product_quantity']
 
 
 class SearchForm(forms.Form):
