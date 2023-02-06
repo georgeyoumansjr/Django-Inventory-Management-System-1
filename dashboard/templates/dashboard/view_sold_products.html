@@ -11,6 +11,7 @@
                     <th scope='col'>Product Name</th>
                     <th scope='col'>Product Price</th>
                     <th scope='col'>Quantity</th>
+                    <th scope='col'>Sold By</th>
                 </tr>
             </thead>
             
@@ -22,7 +23,9 @@
                         <td scope='row'>{{item.product_name}}</td>
                         <td scope='row'>{{item.product_price}}</td>
                         <td scope='row'>{{item.product_quantity}}</td>
+                        <td scope='row'>{{item.sold_by.username}}</td>
                     </tr>
+
                 {% endfor %}
             </tbody>
         </table>

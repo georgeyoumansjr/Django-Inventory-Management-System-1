@@ -8,13 +8,16 @@ from .auth import admin_only
 # Create your views here.
 
 @login_required
-def dashboard_index(request):
-    return render(request,'dashboard/index.html',context={'title':'Dashboard'})
+def dashboard_index(request):   
+    shop_name = request.user.username
+    shop_name = shop_name.split("_")
+    shop_name = map(lambda x: x.capitalize(),shop_name)
+    shop_name = ' '.join(shop_name)
+
+    return render(request,'dashboard/index.html',context={'title':'Dashboard',"shop":str(shop_name),"user": request.user})
 
 
 
-
-    
 #add_products
 @login_required
 def add_products(request):
@@ -25,7 +28,7 @@ def add_products(request):
         user = request.user
         
         if form.is_valid():
-            created = Available_product_table.objects.create(added_by=request.user,**form.cleaned_data)
+            created = models.Available_product_table.objects.create(added_by=request.user,**form.cleaned_data)
             # form.save()
             
             context = {

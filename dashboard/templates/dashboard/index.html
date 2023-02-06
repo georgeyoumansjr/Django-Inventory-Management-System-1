@@ -2,6 +2,11 @@
 {% block content %}
 
   <div class="mt-4">
+    {% if not user.is_superuser %}
+      <div class="text-center p-3">
+          <h2 class="theme-color">{{shop}} Shop</h2>
+      </div>
+    {% endif %}
     <div class="text-center p-3">
         <h2 class="theme-color">Dashboard</h2>
     </div>
