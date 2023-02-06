@@ -25,7 +25,7 @@ def add_products(request):
         user = request.user
         
         if form.is_valid():
-            created = Playlist.objects.create(added_by=request.user,**form.cleaned_data)
+            created = Available_product_table.objects.create(added_by=request.user,**form.cleaned_data)
             # form.save()
             
             context = {
@@ -151,15 +151,22 @@ def sell_available_products(request):
             }
             return render(request,'dashboard/result.html',context=context)
         
-
-    all_products = models.Available_product_table.objects.all()
-    context = {
-        'all_products' : all_products,
-        'title' : 'Sell Products',
-        }
-            
-    return render(request,'dashboard/sell_products.html',context=context)
-
+    if request.user.is_superuser:
+        all_products = models.Available_product_table.objects.all()
+        context = {
+            'all_products' : all_products,
+            'title' : 'Sell Products',
+            }
+                
+        return render(request,'dashboard/sell_products.html',context=context)
+    else:
+        all_products = models.Available_product_table.objects.filter(added_by=request.user)
+        context = {
+            'all_products' : all_products,
+            'title' : 'Sell Products',
+            }
+                
+        return render(request,'dashboard/sell_products.html',context=context)
 
 
 
