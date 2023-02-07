@@ -12,4 +12,6 @@ urlpatterns = [
     path('sell-available-products/', views.sell_available_products, name='sell_available_products'),
     path('view-sold-products/', views.view_sold_products, name='view_sold_products'),
     path('users/', views.users, name='users'),
+    path('users/all/',views.view_availableUsers,name='view_users'),
+    path('users/<int:pk>/',views.userDetail,name='user_detail'),
 ]

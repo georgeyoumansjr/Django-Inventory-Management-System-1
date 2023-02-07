@@ -1,0 +1,38 @@
+{% extends 'dashboard/base.html' %}
+{% block dashboardcontent %}
+
+    {% if users.count > 0 %}
+
+        <table class='table table-striped'>
+            <thead>
+                <tr>
+                    <th scope='col'>id</th>
+                    <th scope='col'>User</th>
+                    <th scope='col'>Shop Name</th>
+                    <th scope='col'>Date Joined</th>
+                    <th scope="col">#</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for item in users %}
+                    <tr>
+                        <td scope='row'>{{item.id}}</th>
+                        <td scope='row'>{{item.username}}</td>
+                        <td scope='row'>{{item.shop_name}}</td>
+                        <td scope='row'>{{item.date_joined}}</td>
+                        <td scope='row'><a class="btn btn-primary action-btn btn-block" href="{% url 'dashboard:user_detail' pk=item.id %}">View</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+    {% else %}
+        <h1 class='text-center'>No Users with Shops to view....</h1>
+
+    {% endif %}
+    
+    <button class='btn action-btn btn-block' onclick="location.href={% url 'dashboard:dashboard_index' %}">Go Back</button>          
+
+
+{% endblock %}

@@ -4,6 +4,9 @@ from .forms import AddProductForm, SearchForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .auth import admin_only
+from django.contrib.auth.models import User
+from django.db.models import Q
+# Create your models here.
 
 # Create your views here.
 
@@ -84,15 +87,12 @@ def search_available_products(request):
     return render(request,'dashboard/search_product.html',context=context)
 
 
-
-
-
-
 # view_available_products 
 @login_required
 def view_available_products(request):
     if request.user.is_superuser:
         all_products = models.Available_product_table.objects.all()
+        
         context = {
             'all_products' : all_products,
             'title' : 'All Products',
@@ -108,8 +108,46 @@ def view_available_products(request):
             
         return render(request,'dashboard/view_available_products.html',context=context)
 
+from datetime import datetime
+# from django.utils.timezone import get_current_timezone
+@admin_only
+@login_required
+def view_availableUsers(request):
+    all_users = User.objects.only("id","username","date_joined").filter(~Q(is_superuser=1))
+    
+    for user in all_users:
+        shop_name = user.username
+        shop_name = shop_name.split("_")
+        shop_name = map(lambda x: x.capitalize(),shop_name)
+        shop_name = ' '.join(shop_name)
+        # tz = get_current_timezone()
+        dt = user.date_joined.strftime('%m/%d/%Y')
+        user.shop_name  = shop_name
+        user.date_joined = dt
+    print(all_users)
+    context = {
+        "users" : all_users
+    }
+
+    return render(request,"dashboard/view_available_shops.html",context= context)
 
 
+@login_required
+def userDetail(request,pk):
+    user_detail = User.objects.get(id=pk)
+    shop_name = user_detail.username
+    shop_name = shop_name.split("_")
+    shop_name = map(lambda x: x.capitalize(),shop_name)
+    shop_name = ' '.join(shop_name)
+
+    listed_products = models.Available_product_table.objects.filter(added_by=pk)
+    sold_products = models.Sold_product_table.objects.filter(sold_by=pk)
+    context = {
+        "shop": shop_name,
+        "listings": listed_products,
+        "sold": sold_products
+    }
+    return render(request,"dashboard/user_detail.html",context= context)
 
 
 # sell_available_products

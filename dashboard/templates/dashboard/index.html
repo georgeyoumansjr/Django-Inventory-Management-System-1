@@ -12,6 +12,18 @@
     </div>
   </div>
 
+  {% if user.is_superuser %}
+  <div class="container pb-3">
+    <div class="d-flex justify-content-center align-items-center">
+      <div class="col-sm">
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:view_users' %}'">
+          <i class="fa fa-list pr-3"></i> View Users
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
   <div class="container">
     <div class="row my-4">
 
