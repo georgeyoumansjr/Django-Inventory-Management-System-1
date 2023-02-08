@@ -182,6 +182,12 @@ def sell_available_products(request):
             update_product.product_quantity = remaning_qty
             update_product.save()
             
+            subject = sell_qty + " of "+ sell_product['product_name'] + " Sold"
+
+            email = EmailMessage(subject, 'Body', to=['coyim41998@ezgiant.com'])
+            
+            email.send()
+            
             context = {
                 'result' : 'Product sold successfully!',
                 'title':'Sell Products',
