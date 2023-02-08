@@ -6,9 +6,12 @@ from django.contrib.auth.forms import UserCreationForm
 from .auth import admin_only
 from django.contrib.auth.models import User
 from django.db.models import Q
-# Create your models here.
+from django.core import mail
 
-# Create your views here.
+connection = mail.get_connection()
+
+connection.open()
+
 
 @login_required
 def dashboard_index(request):   
