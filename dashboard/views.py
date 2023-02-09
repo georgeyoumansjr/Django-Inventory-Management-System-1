@@ -173,10 +173,15 @@ def sell_available_products(request):
             update_product = models.Available_product_table.objects.get(id = sell_product_id)
             update_product.product_quantity = remaning_qty
             update_product.save()
+            total_price = sell_qty * int(sell_product['product_price'])
             
-            subject = sell_qty + " of "+ sell_product['product_name'] + " Sold"
+            subject = str(sell_qty) + " of "+ sell_product['product_name'] + " Sold"
+            body =  f'''
+                    {sell_product['product_name']} was sold by  {user.username},
+                    {total_price} accumulated from {str(sell_qty)} of products
+                    '''
 
-            email = EmailMessage(subject, 'Body', to=['coyim41998@ezgiant.com'])
+            email = mail.EmailMessage(subject.title(), body.capitalize(), to=['kadeceh288@fsouda.com'])
 
             email.send()
             
