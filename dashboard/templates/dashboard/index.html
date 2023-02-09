@@ -25,8 +25,10 @@
   {% endif %}
 
   <div class="container">
-    <div class="row my-4">
 
+    {% if user.is_superuser %}
+    <div class="row my-4">
+      
       <div class="col-sm">
         <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:add_products' %}'">
           <i class="far fa-plus-square pr-3"></i> Add Products
@@ -34,23 +36,26 @@
       </div>
 
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:search_available_products' %}'">
-          <i class="fas fa-search pr-3"></i> Search Products
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:sell_available_products' %}'">
+          <i class="far fa-minus-square pr-3"></i> Sell Products
         </button>
       </div>
 
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:view_available_products' %}'">
-          <i class="fas fa-boxes pr-3"></i> View Available Products
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:users' %}'">
+          <i class="fas fa-user-shield pr-3"></i> Users
         </button>
       </div>
 
     </div>
+    {% endif %}
+
 
     <div class="row my-4">
+      
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:sell_available_products' %}'">
-          <i class="far fa-minus-square pr-3"></i> Sell Products
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:search_available_products' %}'">
+          <i class="fas fa-search pr-3"></i> Search Products
         </button>
       </div>
 
@@ -61,10 +66,11 @@
       </div>
 
       <div class="col-sm">
-        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:users' %}'">
-          <i class="fas fa-user-shield pr-3"></i> Users
+        <button class="btn btn-block action-btn p-3" onclick="location.href='{% url 'dashboard:view_available_products' %}'">
+          <i class="fas fa-boxes pr-3"></i> View Available Products
         </button>
       </div>
+
 
     </div>
   </div>

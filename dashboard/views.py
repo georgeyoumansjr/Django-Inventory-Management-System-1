@@ -72,7 +72,7 @@ def search_available_products(request):
         if form.is_valid():
             search_product = form.cleaned_data['search_product']
             
-            all_products = models.Available_product_table.objects.filter(product_name = search_product).values()  
+            all_products = models.Available_product_table.objects.filter(product_name__contains = search_product).values()  
             #print(all_products)
             context = {
                 'all_products' : all_products,
@@ -93,23 +93,15 @@ def search_available_products(request):
 # view_available_products 
 @login_required
 def view_available_products(request):
-    if request.user.is_superuser:
-        all_products = models.Available_product_table.objects.all()
+    
+    all_products = models.Available_product_table.objects.all()
+    
+    context = {
+        'all_products' : all_products,
+        'title' : 'All Products',
+        }
         
-        context = {
-            'all_products' : all_products,
-            'title' : 'All Products',
-            }
-            
-        return render(request,'dashboard/view_available_products.html',context=context)
-    else:
-        all_products = models.Available_product_table.objects.filter(added_by=request.user)
-        context = {
-            'all_products' : all_products,
-            'title' : 'All Products',
-            }
-            
-        return render(request,'dashboard/view_available_products.html',context=context)
+    return render(request,'dashboard/view_available_products.html',context=context)
 
 from datetime import datetime
 # from django.utils.timezone import get_current_timezone
@@ -185,7 +177,7 @@ def sell_available_products(request):
             subject = sell_qty + " of "+ sell_product['product_name'] + " Sold"
 
             email = EmailMessage(subject, 'Body', to=['coyim41998@ezgiant.com'])
-            
+
             email.send()
             
             context = {
@@ -225,22 +217,16 @@ def sell_available_products(request):
 # view_sold_products
 @login_required
 def view_sold_products(request):
-    if request.user.is_superuser:
-        all_sold_products = models.Sold_product_table.objects.all()
-        context = {
-            'all_sold_products' : all_sold_products,
-            'title' : 'Sold Products',
-            }
-                
-        return render(request,'dashboard/view_sold_products.html',context=context)
-    else:
-        all_sold_products = models.Sold_product_table.objects.filter(sold_by=request.user)
-        context = {
-            'all_sold_products' : all_sold_products,
-            'title' : 'Sold Products',
-            }
-                
-        return render(request,'dashboard/view_sold_products.html',context=context)
+    
+    all_sold_products = models.Sold_product_table.objects.all()
+    context = {
+        'all_sold_products' : all_sold_products,
+        'title' : 'Sold Products',
+        }
+            
+    return render(request,'dashboard/view_sold_products.html',context=context)
+    
+       
 
 
 
